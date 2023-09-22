@@ -1,5 +1,5 @@
+import 'package:app_router_test/app_router.dart';
 import 'package:flutter/material.dart';
-import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +11,19 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
+final AppRouter _appRouter = AppRouter();
 
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: ThemeData.dark(),
-      home: HomePage(),
+      routerDelegate: _appRouter.delegate(),
+      // routerConfig: _appRouter.config(),
+      routeInformationParser: _appRouter.defaultRouteParser(
+        includePrefixMatches: true,
+      ),
+      routeInformationProvider: _appRouter.routeInfoProvider(),
     );
   }
 }
